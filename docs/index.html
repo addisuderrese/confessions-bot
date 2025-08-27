@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram Confessions Bot - Documentation</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --color-bg: #121212;
+            --color-bg-variant: #1e1e1e;
+            --color-card: #2a2a2a;
+            --color-primary: #ff4d4d;
+            --color-primary-variant: #ff3333;
+            --color-text: #e0e0e0;
+            --color-text-light: #a0a0a0;
+            --color-border: #444;
+
+            --container-width-lg: 75%;
+            --container-width-md: 86%;
+            --container-width-sm: 90%;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            outline: 0;
+            box-sizing: border-box;
+            list-style: none;
+            text-decoration: none;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: var(--container-width-lg);
+            margin: 0 auto;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            font-weight: 500;
+            color: var(--color-text);
+        }
+
+        h1 {
+            font-size: 2.8rem;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+        }
+
+        section>h2 {
+            color: var(--color-primary);
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        a {
+            color: var(--color-primary);
+            transition: all 400ms ease;
+        }
+
+        a:hover {
+            color: var(--color-primary-variant);
+            text-decoration: underline;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.2rem;
+            border-radius: 0.4rem;
+            cursor: pointer;
+            border: 1px solid var(--color-primary);
+            color: var(--color-primary);
+            background: transparent;
+            font-weight: 500;
+            transition: all 400ms ease;
+        }
+
+        .btn:hover {
+            background: var(--color-primary);
+            color: var(--color-bg);
+            border-color: transparent;
+        }
+
+        section {
+            margin-top: 8rem;
+        }
+
+        .text-light {
+            color: var(--color-text-light);
+        }
+
+        nav {
+            background: rgba(18, 18, 18, 0.8);
+            width: 100vw;
+            height: 5rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .nav__container {
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav__logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        .nav__logo span {
+            color: var(--color-primary);
+        }
+
+        .nav__menu {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav__menu a {
+            color: var(--color-text-light);
+            font-weight: 400;
+        }
+
+        .nav__menu a:hover {
+            color: var(--color-primary);
+            text-decoration: none;
+        }
+
+        header {
+            padding-top: 8rem;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header__container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 4rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .header__content {
+            max-width: 550px;
+        }
+
+        .header__content h1 span {
+            color: var(--color-primary);
+        }
+
+        .header__content .text-light {
+            margin: 1rem 0 2rem;
+        }
+
+        .header__image {
+            width: 45%;
+        }
+
+        .header__illustration {
+            width: 100%;
+            filter: drop-shadow(0 0 2rem rgba(0, 0, 0, 0.5));
+        }
+
+        .blob-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .blob {
+            position: absolute;
+            background: rgba(255, 77, 77, 0.15);
+            border-radius: 50%;
+            filter: blur(80px);
+            animation: moveBlob 25s infinite alternate;
+        }
+
+        .blob-1 {
+            width: 400px;
+            height: 400px;
+            top: -50px;
+            left: -100px;
+        }
+
+        .blob-2 {
+            width: 300px;
+            height: 300px;
+            bottom: 0;
+            right: -50px;
+            animation-duration: 20s;
+            animation-delay: -10s;
+        }
+
+        .blob-3 {
+            width: 250px;
+            height: 250px;
+            top: 50%;
+            left: 40%;
+            animation-duration: 30s;
+        }
+
+        @keyframes moveBlob {
+            from {
+                transform: translate(0, 0) scale(1);
+            }
+
+            to {
+                transform: translate(100px, -50px) scale(1.2);
+            }
+        }
+
+        .feature-showcase {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 5rem;
+            margin-bottom: 6rem;
+            background: var(--color-bg-variant);
+            padding: 2rem;
+            border-radius: 1rem;
+            border: 1px solid var(--color-border);
+            overflow: hidden;
+        }
+
+        .feature-showcase::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: inherit;
+            background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255, 77, 77, 0.15), transparent 40%);
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            z-index: 0;
+        }
+
+        .feature-showcase:hover::before {
+            opacity: 1;
+        }
+
+        .feature-showcase:nth-child(odd) {
+            flex-direction: row-reverse;
+        }
+
+        .feature-showcase__image,
+        .feature-showcase__content {
+            flex: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-showcase__image svg {
+            width: 100%;
+            max-width: 350px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .feature-showcase__content h3 {
+            font-size: 1.5rem;
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+        }
+
+        .feature-showcase__content ul {
+            padding-left: 1rem;
+        }
+
+        .feature-showcase__content li {
+            list-style-type: '✓';
+            padding-left: 1rem;
+            margin-bottom: 0.75rem;
+            color: var(--color-text-light);
+        }
+
+        .feature-showcase__content li strong {
+            color: var(--color-text);
+        }
+
+        .hidden {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.7s ease-out;
+        }
+
+        .show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes bob {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        @keyframes pop-in {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slide-right {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(5px);
+            }
+        }
+
+        .feature-showcase .user-icon-side {
+            transition: all 0.3s ease;
+        }
+
+        .feature-showcase:hover .user-icon-side {
+            animation: bob 2s ease-in-out infinite;
+        }
+
+        .feature-showcase:hover .user-icon-side:last-child {
+            animation-delay: 0.3s;
+        }
+
+        .feature-showcase .shield-check {
+            transform-origin: center;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.3s ease;
+        }
+
+        .feature-showcase:hover .shield-check {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .feature-showcase:hover .admin-slider {
+            animation: slide-right 1.5s ease-in-out infinite alternate;
+        }
+
+        .feature-showcase:hover .admin-slider:last-child {
+            animation-delay: 0.2s;
+        }
+
+
+        #showcase {
+            position: relative;
+            overflow: hidden;
+            padding: 4rem 0;
+        }
+
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .showcase-card {
+            background: var(--color-card);
+            border: 1px solid var(--color-border);
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .showcase-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .showcase-card__icon {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto 1rem;
+            stroke: var(--color-primary);
+        }
+
+        .showcase-card h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .showcase-card p {
+            color: var(--color-text-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .showcase-card__links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .setup__grid_container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 3rem;
+            background: var(--color-bg-variant);
+            padding: 2rem;
+            border-radius: 1rem;
+        }
+
+        .setup__nav {
+            position: sticky;
+            top: 7rem;
+            align-self: start;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .setup__nav-button {
+            width: 100%;
+            padding: 1rem;
+            text-align: left;
+            background: transparent;
+            color: var(--color-text-light);
+            cursor: pointer;
+            border-radius: 0.5rem;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            border-left: 3px solid transparent;
+            transition: all 300ms ease;
+        }
+
+        .setup__nav-button:hover {
+            background: var(--color-card);
+            color: var(--color-text);
+        }
+
+        .setup__nav-button.active {
+            background: var(--color-card);
+            color: var(--color-primary);
+            font-weight: 600;
+            border-left: 3px solid var(--color-primary);
+        }
+
+        .setup__content {
+            min-height: 400px;
+        }
+
+        .setup__panel {
+            display: none;
+        }
+
+        .setup__panel.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .setup__panel h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .setup__panel h4 {
+            font-weight: 600;
+            color: var(--color-text);
+            margin: 2rem 0 0.5rem 0;
+            padding-bottom: 0.25rem;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .setup__panel p,
+        .setup__panel ul {
+            color: var(--color-text-light);
+            margin-bottom: 1rem;
+        }
+
+        .setup__panel ul li {
+            margin-left: 2rem;
+            list-style-type: disc;
+        }
+
+        .setup__panel code {
+            color: var(--color-primary-variant);
+            font-weight: 600;
+            background: var(--color-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+        }
+
+        pre {
+            background: var(--color-bg);
+            color: var(--color-text-light);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            position: relative;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            border: 1px solid var(--color-border);
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--color-border);
+            color: var(--color-text);
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: all 300ms ease;
+        }
+
+        .copy-btn:hover {
+            opacity: 1;
+            background: var(--color-primary);
+        }
+
+        .usage__container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .command-list h3 {
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--color-primary);
+            padding-bottom: 0.5rem;
+        }
+
+        .command-item {
+            margin-bottom: 1rem;
+        }
+
+        .command-item code {
+            background: var(--color-bg-variant);
+            color: var(--color-primary);
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.3rem;
+            font-weight: 600;
+        }
+
+        .command-item p {
+            color: var(--color-text-light);
+            margin-left: 1rem;
+        }
+
+        footer {
+            background: var(--color-bg-variant);
+            padding: 3rem 0;
+            text-align: center;
+            font-size: 0.9rem;
+            margin-top: 8rem;
+        }
+
+        .footer__logo {
+            font-size: 2rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            display: inline-block;
+        }
+
+        .footer__logo span {
+            color: var(--color-primary);
+        }
+
+        .permalinks {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin: 0 auto 3rem;
+        }
+
+        .footer__copyright {
+            color: var(--color-text-light);
+            margin-top: 4rem;
+        }
+
+        @media screen and (max-width: 1024px) {
+            .container {
+                width: var(--container-width-md);
+            }
+
+            header {
+                padding-top: 6rem;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            .header__container {
+                gap: 2rem;
+            }
+
+            .feature-showcase,
+            .feature-showcase:nth-child(odd) {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .feature-showcase__image {
+                order: -1;
+            }
+
+            .setup__grid_container {
+                grid-template-columns: 1fr;
+            }
+
+            .setup__nav {
+                position: static;
+            }
+
+            .usage__container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media screen and (max-width: 600px) {
+            .container {
+                width: var(--container-width-sm);
+            }
+
+            nav {
+                height: 4rem;
+            }
+
+            .nav__menu {
+                display: none;
+            }
+
+            header {
+                min-height: 80vh;
+                padding-top: 5rem;
+                text-align: center;
+            }
+
+            .header__container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .header__content {
+                max-width: 100%;
+            }
+
+            .header__image {
+                width: 70%;
+                margin-top: 2rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="container nav__container">
+            <a href="#" class="nav__logo">Confessions<span>Bot</span></a>
+            <ul class="nav__menu">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#showcase">Showcase</a></li>
+                <li><a href="#setup">Setup</a></li>
+                <li><a href="#usage">Usage</a></li>
+                <li><a href="#contributing">Contributing</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header>
+        <div class="blob-container">
+            <div class="blob blob-1"></div>
+            <div class="blob blob-2"></div>
+            <div class="blob blob-3"></div>
+        </div>
+        <div class="container header__container">
+            <div class="header__content">
+                <h1>Build Your Community, <span>Anonymously</span>.</h1>
+                <p class="text-light">The complete, open-source solution for creating a safe and engaging anonymous
+                    confessions space on Telegram.</p>
+                <a href="#setup" class="btn">Get Started</a>
+            </div>
+            <div class="header__image">
+                <svg class="header__illustration" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <g stroke-width="3" fill="none" stroke="var(--color-text-light)">
+                        <rect x="55" y="20" width="90" height="160" rx="15" ry="15" stroke-width="4"
+                            stroke="var(--color-border)" fill="var(--color-bg-variant)" />
+                        <line x1="85" y1="35" x2="115" y2="35" stroke-linecap="round" stroke-width="3"
+                            stroke="var(--color-border)" />
+                        <g transform="translate(10, 20)">
+                            <path
+                                d="M 68 85 C 68 78, 73 73, 80 73 L 95 73 C 102 73, 107 78, 107 85 L 107 95 C 107 102, 102 107, 95 107 L 85 107 L 80 112 L 75 107 L 72 107 C 72 107, 68 107, 68 103 Z"
+                                stroke-width="2.5" stroke="var(--color-primary)" fill="var(--color-primary)"
+                                fill-opacity="0.1" />
+                            <path
+                                d="M 90 40 C 90 35, 95 30, 100 30 L 115 30 C 120 30, 125 35, 125 40 L 125 50 C 125 55, 120 60, 115 60 L 105 60 L 100 65 L 95 60 L 92 60 C 92 60, 90 60, 90 56 Z"
+                                stroke-width="2.5" stroke="var(--color-text-light)" />
+                        </g>
+                    </g>
+                </svg>
+            </div>
+        </div>
+    </header>
+
+    <section id="features">
+        <h2>Built for Community, Moderation, and Control</h2>
+        <div class="container">
+            <div class="feature-showcase hidden">
+                <div class="feature-showcase__image">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="3"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <g class="user-icon-side" stroke="var(--color-text-light)" opacity="0.6">
+                            <circle cx="35" cy="45" r="10" />
+                            <path d="M25 70 A 10 10, 0, 0, 1, 45 70 Z" />
+                        </g>
+                        <g class="user-icon-side" stroke="var(--color-text-light)" opacity="0.6">
+                            <circle cx="65" cy="45" r="10" />
+                            <path d="M55 70 A 10 10, 0, 0, 1, 75 70 Z" />
+                        </g>
+                        <g class="user-icon-main" stroke="var(--color-primary)">
+                            <circle cx="50" cy="35" r="12" />
+                            <path d="M35 75 A 15 15, 0, 0, 1, 65 75 Z" />
+                        </g>
+                    </svg>
+                </div>
+                <div class="feature-showcase__content">
+                    <h3>For Users & Community</h3>
+                    <ul>
+                        <li><strong>Anonymous Submissions:</strong> Share thoughts without revealing your identity.</li>
+                        <li><strong>Interactive Comments:</strong> Discuss using text, stickers, or GIFs in threaded
+                            conversations.</li>
+                        <li><strong>Aura Points System:</strong> Build an anonymous reputation with 🏅 points for
+                            positive engagement.</li>
+                        <li><strong>Personal Profiles:</strong> Track your own submissions and comments with the
+                            `/profile` command.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="feature-showcase hidden">
+                <div class="feature-showcase__image">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M50 20L25 35v30c0 10 25 15 25 15s25-5 25-15V35L50 20z"
+                                stroke="var(--color-primary)" stroke-width="3" />
+                            <path class="shield-check" d="M40 50l7 7 13-13" stroke="var(--color-text)"
+                                stroke-width="4" />
+                        </g>
+                    </svg>
+                </div>
+                <div class="feature-showcase__content">
+                    <h3>For Authors & Moderation</h3>
+                    <ul>
+                        <li><strong>Request Contact:</strong> Authors can safely initiate contact with commenters, who
+                            must approve the request.</li>
+                        <li><strong>Request Deletion:</strong> Easily ask for your own published confessions to be
+                            removed.</li>
+                        <li><strong>Comment Reporting:</strong> A simple one-click system for users to flag
+                            inappropriate content for admin review.</li>
+                        <li><strong>Rules Acceptance Gate:</strong> Ensures every new user reads and agrees to the
+                            community guidelines.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="feature-showcase hidden">
+                <div class="feature-showcase__image">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <g fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="25" y="25" width="50" height="50" rx="5" ry="5" stroke="var(--color-text-light)" />
+                            <path class="admin-slider" d="M35 40h20" stroke="var(--color-primary)" />
+                            <path class="admin-slider" d="M35 60h20" stroke="var(--color-primary)" />
+                            <circle cx="60" cy="40" r="5" fill="var(--color-bg)" stroke="var(--color-primary)" />
+                            <circle cx="45" cy="60" r="5" fill="var(--color-bg)" stroke="var(--color-primary)" />
+                        </g>
+                    </svg>
+                </div>
+                <div class="feature-showcase__content">
+                    <h3>For Administrators</h3>
+                    <ul>
+                        <li><strong>Approval Workflow:</strong> Nothing gets published without your explicit approval.
+                        </li>
+                        <li><strong>Full User Management:</strong> Warn, temporarily block, or permanently ban users
+                            with detailed commands.</li>
+                        <li><strong>Reject with Reason:</strong> Inform users precisely why their submission was not
+                            approved.</li>
+                        <li><strong>User Insights:</strong> Get a complete overview of any user's activity in the bot
+                            with the `/id` command.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="showcase">
+        <div class="blob-container">
+            <div class="blob blob-1" style="width: 500px; height: 500px; top: 10%; left: 60%; animation-duration: 35s;">
+            </div>
+            <div class="blob blob-2"
+                style="width: 400px; height: 400px; bottom: 5%; left: -10%; animation-duration: 25s;"></div>
+        </div>
+        <h2>Live Showcase: Communities Using This</h2>
+        <div class="container showcase-grid">
+            <div class="showcase-card">
+                <img src="https://i.ibb.co/Kc0pqhKJ/AAU-Confession-V-40.png" alt="AAU-Confession-V-40" border="0"
+                    style="width: 100px;">
+                <h3>AAU Confessions</h3>
+                <p>a safe space for Addis Ababa University students to share their untold stories, secrets, thoughts,
+                    and feelings completely anonymously.</p>
+                <div class="showcase-card__links">
+                    <a href="https://t.me/aau_confessions_bot" target="_blank" class="btn">Bot Link</a>
+                    <a href="https://t.me/aau_confessions" target="_blank" class="btn">Channel</a>
+                </div>
+            </div>
+            <div class="showcase-card">
+                <svg class="showcase-card__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                </svg>
+                <h3>Your Bot Here</h3>
+                <p>Deploy your own instance of this bot and get it featured. A great way to build and manage your own
+                    community.</p>
+                <div class="showcase-card__links">
+                    <a href="#setup" class="btn">Deploy Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="setup">
+        <h2>Step-by-Step Setup Guide</h2>
+        <div class="container setup__grid_container">
+            <div class="setup__nav">
+                <button class="setup__nav-button active" data-step="1">1. Prerequisites</button>
+                <button class="setup__nav-button" data-step="2">2. Get the Code</button>
+                <button class="setup__nav-button" data-step="3">3. Configuration</button>
+                <button class="setup__nav-button" data-step="4">4. Run the Bot</button>
+            </div>
+            <div class="setup__content">
+                <div class="setup__panel active" data-step="1">
+                    <h3>1. Gather Your Credentials</h3>
+                    <p>Before you begin, you need to collect a few key pieces of information. This is the most important
+                        step!</p>
+                    <ul>
+                        <li><strong>Telegram Bot Token:</strong> Get this from <a href="https://t.me/BotFather"
+                                target="_blank">@BotFather</a> on Telegram by creating a new bot.</li>
+                        <li><strong>Admin Telegram ID:</strong> This is your personal user ID. Get it from a bot like <a
+                                href="https://t.me/userinfobot" target="_blank">@userinfobot</a>.</li>
+                        <li><strong>Channel ID:</strong> The ID of the public channel where confessions will be posted.
+                            The bot must be an admin in this channel. The ID usually starts with <code>-100</code>.</li>
+                        <li><strong>PostgreSQL Database URL:</strong> A connection string to your database. Free tiers
+                            are available from services like <a href="https://aiven.io/" target="_blank">Aiven</a> or <a
+                                href="https://supabase.com/" target="_blank">Supabase</a>.</li>
+                        <li><strong>Python 3.9+ Installed:</strong> Make sure you have a modern version of Python on
+                            your system.</li>
+                    </ul>
+                </div>
+                <div class="setup__panel" data-step="2">
+                    <h3>2. Get the Bot's Code</h3>
+                    <p>Next, download the code from GitHub and install the necessary Python packages.</p>
+                    <h4>1. Clone the Repository</h4>
+                    <p>This command downloads the bot's source code into a new folder named
+                        <code>confessions-bot</code>.</p>
+                    <pre><code>git clone https://github.com/addisuderrese/confessions-bot.git</code><button class="copy-btn">Copy</button></pre>
+                    <h4>2. Navigate into the Directory</h4>
+                    <p>Move your terminal session into the newly created folder.</p>
+                    <pre><code>cd confessions-bot</code><button class="copy-btn">Copy</button></pre>
+                    <h4>3. Install Required Packages</h4>
+                    <p>This command installs all the libraries the bot depends on to function.</p>
+                    <pre><code>pip install -r requirements.txt</code><button class="copy-btn">Copy</button></pre>
+                </div>
+                <div class="setup__panel" data-step="3">
+                    <h3>3. Configure Your Bot</h3>
+                    <p>You'll store your credentials in a secure <strong>.env file</strong>. Create this file in the
+                        main directory of the bot.</p>
+
+                    <h4>BOT_TOKEN</h4>
+                    <p>This is the unique key for your bot. Get it from <a href="https://t.me/BotFather"
+                            target="_blank">@BotFather</a> after creating your bot.</p>
+                    <pre><code>BOT_TOKEN="123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11"</code><button class="copy-btn">Copy</button></pre>
+
+                    <h4>ADMIN_ID</h4>
+                    <p>This is your personal Telegram User ID, which grants you admin privileges. Get it from <a
+                            href="https://t.me/userinfobot" target="_blank">@userinfobot</a>.</p>
+                    <pre><code>ADMIN_ID="987654321"</code><button class="copy-btn">Copy</button></pre>
+
+                    <h4>CHANNEL_ID</h4>
+                    <p>The unique identifier for your public channel. Make sure the bot is an administrator in this
+                        channel. The ID should start with <code>-100</code>.</p>
+                    <pre><code>CHANNEL_ID="-1001234567890"</code><button class="copy-btn">Copy</button></pre>
+
+                    <h4>DATABASE_URL</h4>
+                    <p>The full connection string for your PostgreSQL database. You can get this from your database
+                        provider (e.g., Aiven, Supabase).</p>
+                    <pre><code>DATABASE_URL="postgres://user:password@host:port/dbname?sslmode=require"</code><button class="copy-btn">Copy</button></pre>
+
+                    <p style="margin-top: 2rem;">Once your <code>.env</code> file is saved with all four values, you're
+                        ready for the final step!</p>
+                </div>
+                <div class="setup__panel" data-step="4">
+                    <h3>4. Launch the Bot</h3>
+                    <p>With the configuration complete, you're ready to start the bot.</p>
+                    <h4>1. Run the Main Script</h4>
+                    <p>Execute the following command in your terminal. The bot will start up, connect to the database,
+                        and begin listening for commands.</p>
+                    <pre><code>python main.py</code><button class="copy-btn">Copy</button></pre>
+                    <h4>2. Check the Logs</h4>
+                    <p>On its first run, the bot will automatically create all the necessary tables in your database.
+                        You should see log messages in your terminal indicating a successful database connection and
+                        table setup.</p>
+                    <p><strong>Your bot is now live!</strong> Try sending it a <code>/start</code> command on Telegram
+                        to verify it's working.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="usage">
+        <h2>Commands & Usage</h2>
+        <div class="container usage__container">
+            <div class="command-list">
+                <h3>User Commands</h3>
+                <div class="command-item"><code>/start</code>
+                    <p>Shows the welcome message or views a confession.</p>
+                </div>
+                <div class="command-item"><code>/confess</code>
+                    <p>Starts the anonymous confession submission process.</p>
+                </div>
+                <div class="command-item"><code>/profile</code>
+                    <p>View your Aura points and submission history.</p>
+                </div>
+                <div class="command-item"><code>/help</code>
+                    <p>Displays the help message with all commands.</p>
+                </div>
+            </div>
+            <div class="command-list">
+                <h3>Admin Commands</h3>
+                <div class="command-item"><code>/id &lt;user_id&gt;</code>
+                    <p>Gets a detailed profile of a user.</p>
+                </div>
+                <div class="command-item"><code>/warn &lt;user_id&gt; &lt;reason&gt;</code>
+                    <p>Sends a formal warning to a specific user.</p>
+                </div>
+                <div class="command-item"><code>/block &lt;user_id&gt; &lt;duration&gt;</code>
+                    <p>Temporarily blocks a user (e.g., `7d`, `2w`).</p>
+                </div>
+                <div class="command-item"><code>/pblock &lt;user_id&gt;</code>
+                    <p>Permanently blocks a user from the bot.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contributing">
+        <div class="container" style="text-align: center;">
+            <h2>Contributing</h2>
+            <p class="text-light" style="max-width: 600px; margin: 1rem auto;">
+                This project is open source and contributions are welcome! If you have ideas for new features, bug
+                fixes, or improvements, please fork the repository and open a pull request.
+            </p>
+            <a href="https://github.com/addisuderrese/confessions-bot" target="_blank" class="btn">View on
+                GitHub</a>
+        </div>
+    </section>
+
+    <footer>
+        <a href="#" class="footer__logo">Confessions<span>Bot</span></a>
+        <ul class="permalinks">
+            <li><a href="#">Home</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#setup">Setup</a></li>
+            <li><a href="#usage">Usage</a></li>
+            <li><a href="#contributing">Contributing</a></li>
+        </ul>
+        <div class="footer__copyright">
+            <small>&copy; Confessions Bot. All rights reserved.</small>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => { if (entry.isIntersecting) { entry.target.classList.add('show'); } });
+            });
+            document.querySelectorAll('.hidden').forEach((el) => observer.observe(el));
+
+            const setupNav = document.querySelector('.setup__nav');
+            if (setupNav) {
+                setupNav.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('setup__nav-button')) {
+                        const step = e.target.dataset.step;
+                        document.querySelectorAll('.setup__nav-button').forEach(btn => btn.classList.remove('active'));
+                        e.target.classList.add('active');
+                        document.querySelectorAll('.setup__panel').forEach(panel => {
+                            panel.classList.remove('active');
+                            if (panel.dataset.step === step) panel.classList.add('active');
+                        });
+                    }
+                });
+            }
+
+            document.querySelectorAll('.copy-btn').forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const code = event.target.previousElementSibling;
+                    navigator.clipboard.writeText(code.innerText).then(() => {
+                        const originalText = event.target.innerText;
+                        event.target.innerText = 'Copied!';
+                        setTimeout(() => { event.target.innerText = originalText; }, 2000);
+                    });
+                });
+            });
+
+            document.querySelectorAll('.feature-showcase').forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    card.style.setProperty('--mouse-x', `${x}px`);
+                    card.style.setProperty('--mouse-y', `${y}px`);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
