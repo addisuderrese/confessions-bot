@@ -294,22 +294,74 @@
         .feature-showcase__content h3 {
             font-size: 1.5rem;
             color: var(--color-primary);
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
 
-        .feature-showcase__content ul {
-            padding-left: 1rem;
+        /* Feature Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
         }
 
-        .feature-showcase__content li {
-            list-style-type: '✓';
-            padding-left: 1rem;
-            margin-bottom: 0.75rem;
-            color: var(--color-text-light);
+        .feature-card {
+            background: var(--color-card);
+            border: 1px solid var(--color-border);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
         }
 
-        .feature-showcase__content li strong {
+        .feature-card:hover {
+            border-color: var(--color-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-card__icon {
+            width: 36px;
+            height: 36px;
+            min-width: 36px;
+            border-radius: 0.5rem;
+            background: rgba(255, 77, 77, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .feature-card__icon svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--color-primary);
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .feature-card__content {
+            flex: 1;
+        }
+
+        .feature-card__content strong {
+            display: block;
             color: var(--color-text);
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .feature-card__content p {
+            margin: 0;
+            color: var(--color-text-light);
+            font-size: 0.8rem;
+            line-height: 1.4;
+        }
+
+        @media screen and (max-width: 600px) {
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         .hidden {
@@ -440,52 +492,119 @@
             justify-content: center;
         }
 
-        .setup__grid_container {
-            display: grid;
-            grid-template-columns: 250px 1fr;
-            gap: 3rem;
+        /* Setup Guide - Interactive Stepper Design */
+        .setup__container {
             background: var(--color-bg-variant);
             padding: 2rem;
             border-radius: 1rem;
         }
 
-        .setup__nav {
-            position: sticky;
-            top: 7rem;
-            align-self: start;
+        /* Progress Stepper */
+        .setup__stepper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+            position: relative;
+            padding: 0 1rem;
+        }
+
+        .setup__stepper::before {
+            content: '';
+            position: absolute;
+            top: 24px;
+            left: 50px;
+            right: 50px;
+            height: 3px;
+            background: var(--color-border);
+            z-index: 0;
+        }
+
+        .setup__stepper-progress {
+            position: absolute;
+            top: 24px;
+            left: 50px;
+            height: 3px;
+            background: var(--color-primary);
+            z-index: 1;
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+
+        .setup__step {
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .setup__nav-button {
-            width: 100%;
-            padding: 1rem;
-            text-align: left;
-            background: transparent;
-            color: var(--color-text-light);
+            align-items: center;
             cursor: pointer;
-            border-radius: 0.5rem;
-            font-family: 'Poppins', sans-serif;
-            font-size: 1rem;
-            border-left: 3px solid transparent;
-            transition: all 300ms ease;
+            z-index: 2;
+            flex: 1;
+            transition: all 0.3s ease;
         }
 
-        .setup__nav-button:hover {
+        .setup__step-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
             background: var(--color-card);
+            border: 3px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--color-text-light);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .setup__step-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .setup__step:hover .setup__step-icon {
+            border-color: var(--color-primary);
+            transform: scale(1.1);
+        }
+
+        .setup__step.active .setup__step-icon {
+            background: var(--color-primary);
+            border-color: var(--color-primary);
+            color: var(--color-bg);
+            box-shadow: 0 0 20px rgba(255, 77, 77, 0.4);
+        }
+
+        .setup__step.completed .setup__step-icon {
+            background: var(--color-primary);
+            border-color: var(--color-primary);
+            color: var(--color-bg);
+        }
+
+        .setup__step-label {
+            margin-top: 0.75rem;
+            font-size: 0.85rem;
+            color: var(--color-text-light);
+            text-align: center;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .setup__step.active .setup__step-label {
+            color: var(--color-primary);
+            font-weight: 600;
+        }
+
+        .setup__step.completed .setup__step-label {
             color: var(--color-text);
         }
 
-        .setup__nav-button.active {
-            background: var(--color-card);
-            color: var(--color-primary);
-            font-weight: 600;
-            border-left: 3px solid var(--color-primary);
-        }
-
+        /* Panel Content */
         .setup__content {
             min-height: 400px;
+            padding: 0 0.5rem;
         }
 
         .setup__panel {
@@ -494,80 +613,324 @@
 
         .setup__panel.active {
             display: block;
-            animation: fadeIn 0.5s ease-in-out;
+            animation: slideUp 0.4s ease-out;
         }
 
-        @keyframes fadeIn {
+        @keyframes slideUp {
             from {
                 opacity: 0;
+                transform: translateY(20px);
             }
 
             to {
                 opacity: 1;
+                transform: translateY(0);
             }
         }
 
-        .setup__panel h3 {
+        .setup__panel-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
             margin-bottom: 1.5rem;
-            font-size: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--color-primary);
         }
 
-        .setup__panel h4 {
+        .setup__panel-header h3 {
+            font-size: 1.5rem;
+            margin: 0;
+            color: var(--color-text);
+        }
+
+        .setup__panel-header .step-badge {
+            background: var(--color-primary);
+            color: var(--color-bg);
+            padding: 0.25rem 0.75rem;
+            border-radius: 2rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* Checklist Items */
+        .setup__checklist {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .setup__checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem 1.25rem;
+            background: var(--color-card);
+            border-radius: 0.75rem;
+            border: 1px solid var(--color-border);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .setup__checklist-item:hover {
+            border-color: var(--color-primary);
+            transform: translateX(5px);
+        }
+
+        .setup__checklist-item.checked {
+            border-color: var(--color-primary);
+            background: rgba(255, 77, 77, 0.05);
+        }
+
+        .setup__checkbox {
+            width: 24px;
+            height: 24px;
+            min-width: 24px;
+            border: 2px solid var(--color-border);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .setup__checklist-item.checked .setup__checkbox {
+            background: var(--color-primary);
+            border-color: var(--color-primary);
+        }
+
+        .setup__checkbox svg {
+            width: 14px;
+            height: 14px;
+            stroke: var(--color-bg);
+            stroke-width: 3;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.2s ease;
+        }
+
+        .setup__checklist-item.checked .setup__checkbox svg {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .setup__checklist-content {
+            flex: 1;
+        }
+
+        .setup__checklist-content strong {
+            display: block;
+            color: var(--color-text);
+            margin-bottom: 0.25rem;
+        }
+
+        .setup__checklist-content p {
+            margin: 0;
+            color: var(--color-text-light);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .setup__checklist-content a {
+            font-weight: 600;
+        }
+
+        /* Code Blocks */
+        .setup__code-block {
+            margin: 1rem 0;
+        }
+
+        .setup__code-block label {
+            display: block;
             font-weight: 600;
             color: var(--color-text);
-            margin: 2rem 0 0.5rem 0;
-            padding-bottom: 0.25rem;
-            border-bottom: 1px solid var(--color-border);
-        }
-
-        .setup__panel p,
-        .setup__panel ul {
-            color: var(--color-text-light);
-            margin-bottom: 1rem;
-        }
-
-        .setup__panel ul li {
-            margin-left: 2rem;
-            list-style-type: disc;
-        }
-
-        .setup__panel code {
-            color: var(--color-primary-variant);
-            font-weight: 600;
-            background: var(--color-bg);
-            padding: 0.2rem 0.4rem;
-            border-radius: 4px;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
         }
 
         pre {
             background: var(--color-bg);
             color: var(--color-text-light);
-            padding: 1.5rem;
+            padding: 1rem 1.25rem;
             border-radius: 0.5rem;
             overflow-x: auto;
             position: relative;
             font-family: 'Courier New', Courier, monospace;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             border: 1px solid var(--color-border);
+            margin: 0;
+        }
+
+        pre code {
+            word-break: break-all;
         }
 
         .copy-btn {
             position: absolute;
-            top: 10px;
+            top: 50%;
             right: 10px;
-            background: var(--color-border);
+            transform: translateY(-50%);
+            background: var(--color-card);
             color: var(--color-text);
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
+            border: 1px solid var(--color-border);
+            padding: 6px 12px;
+            border-radius: 6px;
             cursor: pointer;
-            opacity: 0.7;
+            font-size: 0.75rem;
+            font-weight: 500;
             transition: all 300ms ease;
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
 
         .copy-btn:hover {
-            opacity: 1;
             background: var(--color-primary);
+            border-color: var(--color-primary);
+            color: var(--color-bg);
+        }
+
+        .copy-btn.copied {
+            background: #22c55e;
+            border-color: #22c55e;
+        }
+
+        /* Navigation Buttons */
+        .setup__nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--color-border);
+            gap: 1rem;
+        }
+
+        .setup__nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: var(--color-card);
+            color: var(--color-text);
+            border: 1px solid var(--color-border);
+        }
+
+        .setup__nav-btn:hover {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+        }
+
+        .setup__nav-btn.primary {
+            background: var(--color-primary);
+            border-color: var(--color-primary);
+            color: var(--color-bg);
+        }
+
+        .setup__nav-btn.primary:hover {
+            background: var(--color-primary-variant);
+            transform: translateX(3px);
+        }
+
+        .setup__nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .setup__nav-btn svg {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        /* Tip Box */
+        .setup__tip {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 0.75rem;
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .setup__tip--warning {
+            background: rgba(245, 158, 11, 0.1);
+            border-color: rgba(245, 158, 11, 0.3);
+        }
+
+        .setup__tip-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 24px;
+        }
+
+        .setup__tip-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: #3b82f6;
+        }
+
+        .setup__tip--warning .setup__tip-icon svg {
+            stroke: #f59e0b;
+        }
+
+        .setup__tip p {
+            margin: 0;
+            color: var(--color-text-light);
+            font-size: 0.9rem;
+            flex: 1;
+        }
+
+        .setup__tip strong {
+            color: #3b82f6;
+        }
+
+        .setup__tip--warning strong {
+            color: #f59e0b;
+        }
+
+        /* Success Message */
+        .setup__success {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            border-radius: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .setup__success-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .setup__success-icon svg {
+            width: 64px;
+            height: 64px;
+            stroke: #22c55e;
+        }
+
+        .setup__success h4 {
+            color: #22c55e;
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .setup__success p {
+            color: var(--color-text-light);
+            margin: 0;
         }
 
         .usage__container {
@@ -658,12 +1021,18 @@
                 order: -1;
             }
 
-            .setup__grid_container {
-                grid-template-columns: 1fr;
+            /* Setup stepper tablet adjustments */
+            .setup__stepper {
+                padding: 0;
             }
 
-            .setup__nav {
-                position: static;
+            .setup__stepper::before {
+                left: 35px;
+                right: 35px;
+            }
+
+            .setup__step-label {
+                font-size: 0.75rem;
             }
 
             .usage__container {
@@ -711,6 +1080,81 @@
             h2 {
                 font-size: 1.5rem;
             }
+
+            /* Setup guide mobile styles */
+            .setup__container {
+                padding: 1.25rem;
+            }
+
+            .setup__stepper {
+                margin-bottom: 2rem;
+            }
+
+            .setup__stepper::before {
+                top: 20px;
+                left: 28px;
+                right: 28px;
+            }
+
+            .setup__stepper-progress {
+                top: 20px;
+                left: 28px;
+            }
+
+            .setup__step-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+
+            .setup__step-icon svg {
+                width: 18px;
+                height: 18px;
+            }
+
+            .setup__step-label {
+                font-size: 0.65rem;
+                max-width: 60px;
+            }
+
+            .setup__panel-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .setup__panel-header h3 {
+                font-size: 1.25rem;
+            }
+
+            .setup__checklist-item {
+                padding: 0.875rem 1rem;
+            }
+
+            .setup__nav-buttons {
+                flex-direction: column;
+            }
+
+            .setup__nav-btn {
+                width: 100%;
+                justify-content: center;
+                min-height: 48px;
+            }
+
+            pre {
+                font-size: 0.75rem;
+                padding: 0.875rem 3rem 0.875rem 0.875rem;
+            }
+
+            .copy-btn {
+                padding: 4px 8px;
+                font-size: 0.65rem;
+            }
+
+            /* GitHub stats mobile */
+            .github-stats {
+                justify-content: center;
+            }
         }
     </style>
 </head>
@@ -742,6 +1186,18 @@
                 <p class="text-light">The complete, open-source solution for creating a safe and engaging anonymous
                     confessions space on Telegram.</p>
                 <a href="#setup" class="btn">Get Started</a>
+                <div class="github-stats" style="margin-top: 1.5rem; display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                    <a href="https://github.com/addisuderrese/confessions-bot/stargazers" target="_blank"
+                        style="display: inline-block;">
+                        <img src="https://img.shields.io/github/stars/addisuderrese/confessions-bot?style=for-the-badge&logo=github&logoColor=white&labelColor=2a2a2a&color=ff4d4d"
+                            alt="GitHub Stars">
+                    </a>
+                    <a href="https://github.com/addisuderrese/confessions-bot/network/members" target="_blank"
+                        style="display: inline-block;">
+                        <img src="https://img.shields.io/github/forks/addisuderrese/confessions-bot?style=for-the-badge&logo=github&logoColor=white&labelColor=2a2a2a&color=ff4d4d"
+                            alt="GitHub Forks">
+                    </a>
+                </div>
             </div>
             <div class="header__image">
                 <svg class="header__illustration" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
@@ -764,6 +1220,40 @@
             </div>
         </div>
     </header>
+
+    <!-- Version Announcement Banner -->
+    <section id="announcement" style="margin-top: 2rem; padding: 0;">
+        <div class="container">
+            <div
+                style="background: linear-gradient(135deg, rgba(255, 77, 77, 0.15) 0%, rgba(255, 77, 77, 0.05) 100%); border: 1px solid var(--color-primary); border-radius: 1rem; padding: 2rem; text-align: center; position: relative; overflow: hidden;">
+                <div
+                    style="position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255, 77, 77, 0.1) 0%, transparent 50%); animation: pulse 3s ease-in-out infinite;">
+                </div>
+                <span
+                    style="display: inline-block; background: var(--color-primary); color: var(--color-bg); padding: 0.25rem 0.75rem; border-radius: 2rem; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem;">Coming
+                    Soon</span>
+                <h3 style="font-size: 1.75rem; margin-bottom: 0.5rem; position: relative;">🚀 Version <span
+                        style="color: var(--color-primary);">8.0</span> is on the way</h3>
+                <p class="text-light" style="max-width: 500px; margin: 0 auto; position: relative;">Exciting new
+                    features and improvements are coming. Stay tuned for the biggest update yet.</p>
+            </div>
+        </div>
+    </section>
+    <style>
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
+        }
+    </style>
 
     <section id="features">
         <h2>Built for Community, Moderation, and Control</h2>
@@ -788,15 +1278,82 @@
                 </div>
                 <div class="feature-showcase__content">
                     <h3>For Users & Community</h3>
-                    <ul>
-                        <li><strong>Anonymous Submissions:</strong> Share thoughts without revealing your identity.</li>
-                        <li><strong>Interactive Comments:</strong> Discuss using text, stickers, or GIFs in threaded
-                            conversations.</li>
-                        <li><strong>Aura Points System:</strong> Build an anonymous reputation with 🏅 points for
-                            positive engagement.</li>
-                        <li><strong>Personal Profiles:</strong> Track your own submissions and comments with the
-                            `/profile` command.</li>
-                    </ul>
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <div class="feature-card__icon">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                </svg>
+                            </div>
+                            <div class="feature-card__content">
+                                <strong>Anonymous Submissions</strong>
+                                <p>Share thoughts without revealing your identity. Select up to 3 categories to tag your
+                                    confession.</p>
+                            </div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card__icon">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                                </svg>
+                            </div>
+                            <div class="feature-card__content">
+                                <strong>Interactive Comments</strong>
+                                <p>Discuss using text, stickers, or GIFs with full threaded reply support.</p>
+                            </div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card__icon">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+                                </svg>
+                            </div>
+                            <div class="feature-card__content">
+                                <strong>Like/Dislike Reactions</strong>
+                                <p>React to comments — likes give +3 Aura points, dislikes give -3 to the commenter.</p>
+                            </div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card__icon">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                                </svg>
+                            </div>
+                            <div class="feature-card__content">
+                                <strong>Aura Points System</strong>
+                                <p>Build an anonymous reputation. Earn +5 for approved confessions, +3 for likes on
+                                    comments.</p>
+                            </div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card__icon">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <div class="feature-card__content">
+                                <strong>Personal Profiles</strong>
+                                <p>View your Aura points, browse confession history, see comments, and request deletion.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card__icon">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                </svg>
+                            </div>
+                            <div class="feature-card__content">
+                                <strong>Contact Admin</strong>
+                                <p>Reach out directly to the admin via a private message form in the bot.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="feature-showcase hidden">
@@ -812,16 +1369,83 @@
                 </div>
                 <div class="feature-showcase__content">
                     <h3>For Authors & Moderation</h3>
-                    <ul>
-                        <li><strong>Request Contact:</strong> Authors can safely initiate contact with commenters, who
-                            must approve the request.</li>
-                        <li><strong>Request Deletion:</strong> Easily ask for your own published confessions to be
-                            removed.</li>
-                        <li><strong>Comment Reporting:</strong> A simple one-click system for users to flag
-                            inappropriate content for admin review.</li>
-                        <li><strong>Rules Acceptance Gate:</strong> Ensures every new user reads and agrees to the
-                            community guidelines.</li>
-                    </ul>
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <div class="feature-card__icon">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                                </svg>
+                            </div>
+                            <div class="feature-card__content">
+                                <strong>Request Contact</strong>
+                                <p>Authors can safely request to contact a commenter. The commenter must approve sharing
+                                    their @username.</p>
+                            </div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card__icon">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                </svg>
+                            </div>
+                            <div class="feature-card__content">
+                                <strong>Request Deletion</strong>
+                                <p>Request deletion of your own published or pending confessions from your profile menu.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card__icon">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9" />
+                                </svg>
+                            </div>
+                            <div class="feature-card__content">
+                                <strong>Comment Reporting</strong>
+                                <p>One-click button to flag inappropriate comments for admin review with confirmation
+                                    prompt.</p>
+                            </div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card__icon">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                                </svg>
+                            </div>
+                            <div class="feature-card__content">
+                                <strong>Rules Acceptance Gate</strong>
+                                <p>New users must read and accept community guidelines before using the bot.</p>
+                            </div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card__icon">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                                </svg>
+                            </div>
+                            <div class="feature-card__content">
+                                <strong>Deep Link Support</strong>
+                                <p>Confessions have direct links from the channel that open in the bot with full comment
+                                    history.</p>
+                            </div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card__icon">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                                </svg>
+                            </div>
+                            <div class="feature-card__content">
+                                <strong>Paginated Comments</strong>
+                                <p>Comments are displayed in pages with previous/next navigation for large threads.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="feature-showcase hidden">
@@ -838,16 +1462,84 @@
                 </div>
                 <div class="feature-showcase__content">
                     <h3>For Administrators</h3>
-                    <ul>
-                        <li><strong>Approval Workflow:</strong> Nothing gets published without your explicit approval.
-                        </li>
-                        <li><strong>Full User Management:</strong> Warn, temporarily block, or permanently ban users
-                            with detailed commands.</li>
-                        <li><strong>Reject with Reason:</strong> Inform users precisely why their submission was not
-                            approved.</li>
-                        <li><strong>User Insights:</strong> Get a complete overview of any user's activity in the bot
-                            with the `/id` command.</li>
-                    </ul>
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <div class="feature-card__icon">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <div class="feature-card__content">
+                                <strong>Approval Workflow</strong>
+                                <p>Every confession is queued for review with Approve/Reject buttons directly in
+                                    Telegram.</p>
+                            </div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card__icon">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <div class="feature-card__content">
+                                <strong>Reject with Reason</strong>
+                                <p>Optionally provide a rejection reason that gets sent to the user, or skip to reject
+                                    silently.</p>
+                            </div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card__icon">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                                </svg>
+                            </div>
+                            <div class="feature-card__content">
+                                <strong>Full User Management</strong>
+                                <p>Comprehensive command suite: <code>/warn</code>, <code>/block</code>,
+                                    <code>/pblock</code>, <code>/unblock</code>.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card__icon">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    <path
+                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                </svg>
+                            </div>
+                            <div class="feature-card__content">
+                                <strong>User Insights</strong>
+                                <p>The <code>/id</code> command shows username, Aura points, confession count, and block
+                                    status.</p>
+                            </div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card__icon">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                                </svg>
+                            </div>
+                            <div class="feature-card__content">
+                                <strong>Deletion Request Queue</strong>
+                                <p>Users can request deletion of their confessions; admins approve or reject with a
+                                    single click.</p>
+                            </div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card__icon">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
+                                </svg>
+                            </div>
+                            <div class="feature-card__content">
+                                <strong>Direct Reply System</strong>
+                                <p>Reply to user messages forwarded by the bot to send responses back to the user.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -891,87 +1583,280 @@
 
     <section id="setup">
         <h2>Step-by-Step Setup Guide</h2>
-        <div class="container setup__grid_container">
-            <div class="setup__nav">
-                <button class="setup__nav-button active" data-step="1">1. Prerequisites</button>
-                <button class="setup__nav-button" data-step="2">2. Get the Code</button>
-                <button class="setup__nav-button" data-step="3">3. Configuration</button>
-                <button class="setup__nav-button" data-step="4">4. Run the Bot</button>
+        <div class="container setup__container">
+            <!-- Progress Stepper -->
+            <div class="setup__stepper">
+                <div class="setup__stepper-progress" id="stepper-progress"></div>
+                <div class="setup__step active" data-step="1">
+                    <div class="setup__step-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <span class="setup__step-label">Prerequisites</span>
+                </div>
+                <div class="setup__step" data-step="2">
+                    <div class="setup__step-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg>
+                    </div>
+                    <span class="setup__step-label">Get Code</span>
+                </div>
+                <div class="setup__step" data-step="3">
+                    <div class="setup__step-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                            <circle cx="12" cy="12" r="3" />
+                        </svg>
+                    </div>
+                    <span class="setup__step-label">Configure</span>
+                </div>
+                <div class="setup__step" data-step="4">
+                    <div class="setup__step-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                            <path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <span class="setup__step-label">Launch</span>
+                </div>
             </div>
+
+            <!-- Panel Content -->
             <div class="setup__content">
+                <!-- Step 1: Prerequisites -->
                 <div class="setup__panel active" data-step="1">
-                    <h3>1. Gather Your Credentials</h3>
-                    <p>Before you begin, you need to collect a few key pieces of information. This is the most important
-                        step!</p>
-                    <ul>
-                        <li><strong>Telegram Bot Token:</strong> Get this from <a href="https://t.me/BotFather"
-                                target="_blank">@BotFather</a> on Telegram by creating a new bot.</li>
-                        <li><strong>Admin Telegram ID:</strong> This is your personal user ID. Get it from a bot like <a
-                                href="https://t.me/userinfobot" target="_blank">@userinfobot</a>.</li>
-                        <li><strong>Channel ID:</strong> The ID of the public channel where confessions will be posted.
-                            The bot must be an admin in this channel. The ID usually starts with <code>-100</code>.</li>
-                        <li><strong>PostgreSQL Database URL:</strong> A connection string to your database. Free tiers
-                            are available from services like <a href="https://aiven.io/" target="_blank">Aiven</a> or <a
-                                href="https://supabase.com/" target="_blank">Supabase</a>.</li>
-                        <li><strong>Python 3.9+ Installed:</strong> Make sure you have a modern version of Python on
-                            your system.</li>
-                    </ul>
+                    <div class="setup__panel-header">
+                        <span class="step-badge">Step 1 of 4</span>
+                        <h3>Gather Your Credentials</h3>
+                    </div>
+                    <p>Before you begin, collect these key pieces of information. Click each item when you have it
+                        ready.</p>
+
+                    <div class="setup__checklist">
+                        <div class="setup__checklist-item" onclick="this.classList.toggle('checked')">
+                            <div class="setup__checkbox">
+                                <svg viewBox="0 0 24 24">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                            </div>
+                            <div class="setup__checklist-content">
+                                <strong>Telegram Bot Token</strong>
+                                <p>Get this from <a href="https://t.me/BotFather" target="_blank">@BotFather</a> on
+                                    Telegram by creating a new bot.</p>
+                            </div>
+                        </div>
+                        <div class="setup__checklist-item" onclick="this.classList.toggle('checked')">
+                            <div class="setup__checkbox">
+                                <svg viewBox="0 0 24 24">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                            </div>
+                            <div class="setup__checklist-content">
+                                <strong>Admin Telegram ID</strong>
+                                <p>Your personal user ID. Get it from <a href="https://t.me/userinfobot"
+                                        target="_blank">@userinfobot</a>.</p>
+                            </div>
+                        </div>
+                        <div class="setup__checklist-item" onclick="this.classList.toggle('checked')">
+                            <div class="setup__checkbox">
+                                <svg viewBox="0 0 24 24">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                            </div>
+                            <div class="setup__checklist-content">
+                                <strong>Channel ID</strong>
+                                <p>The ID of your public channel where confessions will be posted. Usually starts with
+                                    <code>-100</code>. The bot must be an admin.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="setup__checklist-item" onclick="this.classList.toggle('checked')">
+                            <div class="setup__checkbox">
+                                <svg viewBox="0 0 24 24">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                            </div>
+                            <div class="setup__checklist-content">
+                                <strong>PostgreSQL Database URL</strong>
+                                <p>A connection string to your database. Free tiers available from <a
+                                        href="https://aiven.io/" target="_blank">Aiven</a> or <a
+                                        href="https://supabase.com/" target="_blank">Supabase</a>.</p>
+                            </div>
+                        </div>
+                        <div class="setup__checklist-item" onclick="this.classList.toggle('checked')">
+                            <div class="setup__checkbox">
+                                <svg viewBox="0 0 24 24">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                            </div>
+                            <div class="setup__checklist-content">
+                                <strong>Python 3.9+ Installed</strong>
+                                <p>Make sure you have a modern version of Python on your system.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="setup__nav-buttons">
+                        <div></div>
+                        <button class="setup__nav-btn primary" onclick="goToStep(2)">
+                            Next: Get Code
+                            <svg viewBox="0 0 24 24">
+                                <path d="M9 5l7 7-7 7" />
+                            </svg>
+                        </button>
+                    </div>
                 </div>
+
+                <!-- Step 2: Get the Code -->
                 <div class="setup__panel" data-step="2">
-                    <h3>2. Get the Bot's Code</h3>
-                    <p>Next, download the code from GitHub and install the necessary Python packages.</p>
-                    <h4>1. Clone the Repository</h4>
-                    <p>This command downloads the bot's source code into a new folder named
-                        <code>confessions-bot</code>.</p>
-                    <pre><code>git clone https://github.com/addisuderrese/confessions-bot.git</code><button class="copy-btn">Copy</button></pre>
-                    <h4>2. Navigate into the Directory</h4>
-                    <p>Move your terminal session into the newly created folder.</p>
-                    <pre><code>cd confessions-bot</code><button class="copy-btn">Copy</button></pre>
-                    <h4>3. Install Required Packages</h4>
-                    <p>This command installs all the libraries the bot depends on to function.</p>
-                    <pre><code>pip install -r requirements.txt</code><button class="copy-btn">Copy</button></pre>
+                    <div class="setup__panel-header">
+                        <span class="step-badge">Step 2 of 4</span>
+                        <h3>Get the Bot's Code</h3>
+                    </div>
+                    <p>Download the code from GitHub and install the necessary Python packages.</p>
+
+                    <div class="setup__code-block">
+                        <label>1. Clone the Repository</label>
+                        <pre><code>git clone https://github.com/addisuderrese/confessions-bot.git</code><button class="copy-btn">Copy</button></pre>
+                    </div>
+
+                    <div class="setup__code-block">
+                        <label>2. Navigate into the Directory</label>
+                        <pre><code>cd confessions-bot</code><button class="copy-btn">Copy</button></pre>
+                    </div>
+
+                    <div class="setup__code-block">
+                        <label>3. Install Required Packages</label>
+                        <pre><code>pip install -r requirements.txt</code><button class="copy-btn">Copy</button></pre>
+                    </div>
+
+                    <div class="setup__tip">
+                        <span class="setup__tip-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path
+                                    d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                            </svg>
+                        </span>
+                        <p><strong>Tip:</strong> Using a virtual environment is recommended. Run
+                            <code>python -m venv venv</code> first, then activate it before installing packages.
+                        </p>
+                    </div>
+
+                    <div class="setup__nav-buttons">
+                        <button class="setup__nav-btn" onclick="goToStep(1)">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M15 19l-7-7 7-7" />
+                            </svg>
+                            Previous
+                        </button>
+                        <button class="setup__nav-btn primary" onclick="goToStep(3)">
+                            Next: Configure
+                            <svg viewBox="0 0 24 24">
+                                <path d="M9 5l7 7-7 7" />
+                            </svg>
+                        </button>
+                    </div>
                 </div>
+
+                <!-- Step 3: Configuration -->
                 <div class="setup__panel" data-step="3">
-                    <h3>3. Configure Your Bot</h3>
-                    <p>You'll store your credentials in a secure <strong>.env file</strong>. Create this file in the
-                        main directory of the bot.</p>
+                    <div class="setup__panel-header">
+                        <span class="step-badge">Step 3 of 4</span>
+                        <h3>Configure Your Bot</h3>
+                    </div>
+                    <p>Create a file named <code>.env</code> in the main directory and add these values:</p>
 
-                    <h4>BOT_TOKEN</h4>
-                    <p>This is the unique key for your bot. Get it from <a href="https://t.me/BotFather"
-                            target="_blank">@BotFather</a> after creating your bot.</p>
-                    <pre><code>BOT_TOKEN="123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11"</code><button class="copy-btn">Copy</button></pre>
+                    <div class="setup__code-block">
+                        <label>BOT_TOKEN</label>
+                        <pre><code>BOT_TOKEN="123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11"</code><button class="copy-btn">Copy</button></pre>
+                    </div>
 
-                    <h4>ADMIN_ID</h4>
-                    <p>This is your personal Telegram User ID, which grants you admin privileges. Get it from <a
-                            href="https://t.me/userinfobot" target="_blank">@userinfobot</a>.</p>
-                    <pre><code>ADMIN_ID="987654321"</code><button class="copy-btn">Copy</button></pre>
+                    <div class="setup__code-block">
+                        <label>ADMIN_ID</label>
+                        <pre><code>ADMIN_ID="987654321"</code><button class="copy-btn">Copy</button></pre>
+                    </div>
 
-                    <h4>CHANNEL_ID</h4>
-                    <p>The unique identifier for your public channel. Make sure the bot is an administrator in this
-                        channel. The ID should start with <code>-100</code>.</p>
-                    <pre><code>CHANNEL_ID="-1001234567890"</code><button class="copy-btn">Copy</button></pre>
+                    <div class="setup__code-block">
+                        <label>CHANNEL_ID</label>
+                        <pre><code>CHANNEL_ID="-1001234567890"</code><button class="copy-btn">Copy</button></pre>
+                    </div>
 
-                    <h4>DATABASE_URL</h4>
-                    <p>The full connection string for your PostgreSQL database. You can get this from your database
-                        provider (e.g., Aiven, Supabase).</p>
-                    <pre><code>DATABASE_URL="postgres://user:password@host:port/dbname?sslmode=require"</code><button class="copy-btn">Copy</button></pre>
+                    <div class="setup__code-block">
+                        <label>DATABASE_URL</label>
+                        <pre><code>DATABASE_URL="postgres://user:password@host:port/dbname?sslmode=require"</code><button class="copy-btn">Copy</button></pre>
+                    </div>
 
-                    <p style="margin-top: 2rem;">Once your <code>.env</code> file is saved with all four values, you're
-                        ready for the final step!</p>
+                    <div class="setup__tip setup__tip--warning">
+                        <span class="setup__tip-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path
+                                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                            </svg>
+                        </span>
+                        <p><strong>Important:</strong> Never commit your <code>.env</code> file to Git. It contains
+                            sensitive credentials.</p>
+                    </div>
+
+                    <div class="setup__nav-buttons">
+                        <button class="setup__nav-btn" onclick="goToStep(2)">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M15 19l-7-7 7-7" />
+                            </svg>
+                            Previous
+                        </button>
+                        <button class="setup__nav-btn primary" onclick="goToStep(4)">
+                            Next: Launch
+                            <svg viewBox="0 0 24 24">
+                                <path d="M9 5l7 7-7 7" />
+                            </svg>
+                        </button>
+                    </div>
                 </div>
+
+                <!-- Step 4: Launch -->
                 <div class="setup__panel" data-step="4">
-                    <h3>4. Launch the Bot</h3>
+                    <div class="setup__panel-header">
+                        <span class="step-badge">Step 4 of 4</span>
+                        <h3>Launch the Bot</h3>
+                    </div>
                     <p>With the configuration complete, you're ready to start the bot.</p>
-                    <h4>1. Run the Main Script</h4>
-                    <p>Execute the following command in your terminal. The bot will start up, connect to the database,
-                        and begin listening for commands.</p>
-                    <pre><code>python main.py</code><button class="copy-btn">Copy</button></pre>
-                    <h4>2. Check the Logs</h4>
-                    <p>On its first run, the bot will automatically create all the necessary tables in your database.
-                        You should see log messages in your terminal indicating a successful database connection and
-                        table setup.</p>
-                    <p><strong>Your bot is now live!</strong> Try sending it a <code>/start</code> command on Telegram
-                        to verify it's working.</p>
+
+                    <div class="setup__code-block">
+                        <label>Run the Main Script</label>
+                        <pre><code>python main.py</code><button class="copy-btn">Copy</button></pre>
+                    </div>
+
+                    <p>On its first run, the bot will automatically create all necessary database tables. You should see
+                        log messages indicating a successful connection.</p>
+
+                    <div class="setup__success">
+                        <div class="setup__success-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <h4>Your bot is now live</h4>
+                        <p>Try sending it a <code>/start</code> command on Telegram to verify it's working.</p>
+                    </div>
+
+                    <div class="setup__nav-buttons">
+                        <button class="setup__nav-btn" onclick="goToStep(3)">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M15 19l-7-7 7-7" />
+                            </svg>
+                            Previous
+                        </button>
+                        <a href="#usage" class="setup__nav-btn primary">
+                            View Commands
+                            <svg viewBox="0 0 24 24">
+                                <path d="M9 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -983,31 +1868,80 @@
             <div class="command-list">
                 <h3>User Commands</h3>
                 <div class="command-item"><code>/start</code>
-                    <p>Shows the welcome message or views a confession.</p>
+                    <p>Shows welcome message. If used via a deep link (e.g., from channel), opens the specified
+                        confession with its comments.</p>
                 </div>
                 <div class="command-item"><code>/confess</code>
-                    <p>Starts the anonymous confession submission process.</p>
+                    <p>Start a new anonymous confession. Select 1-3 categories, then write your text (10-3900
+                        characters). Submission is queued for admin review.</p>
                 </div>
                 <div class="command-item"><code>/profile</code>
-                    <p>View your Aura points and submission history.</p>
+                    <p>View your 🏅 Aura points, browse paginated lists of your confessions and comments, and request
+                        deletion of your posts.</p>
                 </div>
                 <div class="command-item"><code>/help</code>
-                    <p>Displays the help message with all commands.</p>
+                    <p>Displays the help message with all available commands and a quick guide to comment interactions.
+                    </p>
+                </div>
+                <div class="command-item"><code>/rules</code>
+                    <p>View the full community rules and guidelines at any time.</p>
+                </div>
+                <div class="command-item"><code>/privacy</code>
+                    <p>View privacy information about how your data is stored and used, with a link to the full Privacy
+                        Policy.</p>
+                </div>
+                <div class="command-item"><code>/cancel</code>
+                    <p>Cancel the current action or form (confession submission, contact admin, etc.) and return to the
+                        main menu.</p>
+                </div>
+                <h3 style="margin-top: 2rem;">Comment Interactions</h3>
+                <div class="command-item">👍 <strong>Like</strong> / 👎 <strong>Dislike</strong>
+                    <p>React to comments. Liking gives the commenter +3 Aura points; disliking gives -3 Aura points.</p>
+                </div>
+                <div class="command-item">↪️ <strong>Reply</strong>
+                    <p>Reply to a specific comment with text, a sticker, or a GIF. Replies are threaded and linked to
+                        the original.</p>
+                </div>
+                <div class="command-item">⚠️ <strong>Report</strong>
+                    <p>Flag a comment as inappropriate. Admin receives a notification for review.</p>
+                </div>
+                <div class="command-item">🤝 <strong>Request Contact</strong>
+                    <p>(Confession author only) Request to connect with a commenter. The commenter chooses whether to
+                        share their @username.</p>
                 </div>
             </div>
             <div class="command-list">
                 <h3>Admin Commands</h3>
                 <div class="command-item"><code>/id &lt;user_id&gt;</code>
-                    <p>Gets a detailed profile of a user.</p>
+                    <p>Lookup user details: Telegram username, first name, Aura points, confession count, comment count,
+                        rule acceptance status, and block status.</p>
                 </div>
                 <div class="command-item"><code>/warn &lt;user_id&gt; &lt;reason&gt;</code>
-                    <p>Sends a formal warning to a specific user.</p>
+                    <p>Send a formal warning message to a user. The reason is included in the warning notification.</p>
                 </div>
-                <div class="command-item"><code>/block &lt;user_id&gt; &lt;duration&gt;</code>
-                    <p>Temporarily blocks a user (e.g., `7d`, `2w`).</p>
+                <div class="command-item"><code>/block &lt;user_id&gt; &lt;duration&gt; [reason]</code>
+                    <p>Temporarily block a user. Duration format: <code>7d</code> (7 days), <code>2w</code> (2 weeks).
+                        Optional reason is shown to the user.</p>
                 </div>
-                <div class="command-item"><code>/pblock &lt;user_id&gt;</code>
-                    <p>Permanently blocks a user from the bot.</p>
+                <div class="command-item"><code>/pblock &lt;user_id&gt; [reason]</code>
+                    <p>Permanently block a user from the bot. They will see the block message on every interaction
+                        attempt.</p>
+                </div>
+                <div class="command-item"><code>/unblock &lt;user_id&gt;</code>
+                    <p>Remove a block (temporary or permanent) from a user, restoring their access to the bot.</p>
+                </div>
+                <h3 style="margin-top: 2rem;">Admin Actions</h3>
+                <div class="command-item">✅ <strong>Approve</strong> / ❌ <strong>Reject</strong>
+                    <p>Use the inline buttons on confession review messages to approve or reject submissions. Rejections
+                        can include a reason.</p>
+                </div>
+                <div class="command-item">💬 <strong>Reply to User</strong>
+                    <p>Reply to any bot-forwarded message (contact requests, reports) to send a response back to the
+                        user.</p>
+                </div>
+                <div class="command-item">🗑️ <strong>Deletion Requests</strong>
+                    <p>Approve or reject user requests to delete their own confessions using the inline buttons on
+                        request notifications.</p>
                 </div>
             </div>
         </div>
@@ -1017,7 +1951,7 @@
         <div class="container" style="text-align: center;">
             <h2>Contributing</h2>
             <p class="text-light" style="max-width: 600px; margin: 1rem auto;">
-                This project is open source and contributions are welcome! If you have ideas for new features, bug
+                This project is open source and contributions are welcome. If you have ideas for new features, bug
                 fixes, or improvements, please fork the repository and open a pull request.
             </p>
             <a href="https://github.com/addisuderrese/confessions-bot" target="_blank" class="btn">View on
@@ -1040,38 +1974,80 @@
     </footer>
 
     <script>
+        // Stepper navigation function
+        function goToStep(stepNumber) {
+            const steps = document.querySelectorAll('.setup__step');
+            const panels = document.querySelectorAll('.setup__panel');
+            const progressBar = document.getElementById('stepper-progress');
+
+            // Update step indicators
+            steps.forEach((step, index) => {
+                step.classList.remove('active', 'completed');
+                if (index + 1 < stepNumber) {
+                    step.classList.add('completed');
+                } else if (index + 1 === stepNumber) {
+                    step.classList.add('active');
+                }
+            });
+
+            // Update panels
+            panels.forEach(panel => {
+                panel.classList.remove('active');
+                if (parseInt(panel.dataset.step) === stepNumber) {
+                    panel.classList.add('active');
+                }
+            });
+
+            // Update progress bar
+            const totalSteps = steps.length;
+            const progressPercent = ((stepNumber - 1) / (totalSteps - 1)) * 100;
+            const progressWidth = `calc(${progressPercent}% - ${progressPercent > 0 ? '0px' : '0px'})`;
+            progressBar.style.width = progressWidth;
+
+            // Scroll to setup section on mobile
+            if (window.innerWidth <= 600) {
+                document.getElementById('setup').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
+            // Intersection observer for animations
             const observer = new IntersectionObserver((entries) => {
-                entries.forEach((entry) => { if (entry.isIntersecting) { entry.target.classList.add('show'); } });
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('show');
+                    }
+                });
             });
             document.querySelectorAll('.hidden').forEach((el) => observer.observe(el));
 
-            const setupNav = document.querySelector('.setup__nav');
-            if (setupNav) {
-                setupNav.addEventListener('click', (e) => {
-                    if (e.target.classList.contains('setup__nav-button')) {
-                        const step = e.target.dataset.step;
-                        document.querySelectorAll('.setup__nav-button').forEach(btn => btn.classList.remove('active'));
-                        e.target.classList.add('active');
-                        document.querySelectorAll('.setup__panel').forEach(panel => {
-                            panel.classList.remove('active');
-                            if (panel.dataset.step === step) panel.classList.add('active');
-                        });
-                    }
+            // Stepper step click handlers
+            const stepperSteps = document.querySelectorAll('.setup__step');
+            stepperSteps.forEach(step => {
+                step.addEventListener('click', () => {
+                    const stepNum = parseInt(step.dataset.step);
+                    goToStep(stepNum);
                 });
-            }
+            });
 
+            // Enhanced copy button functionality
             document.querySelectorAll('.copy-btn').forEach(button => {
                 button.addEventListener('click', (event) => {
+                    event.stopPropagation();
                     const code = event.target.previousElementSibling;
                     navigator.clipboard.writeText(code.innerText).then(() => {
                         const originalText = event.target.innerText;
-                        event.target.innerText = 'Copied!';
-                        setTimeout(() => { event.target.innerText = originalText; }, 2000);
+                        event.target.innerText = '✓ Copied!';
+                        event.target.classList.add('copied');
+                        setTimeout(() => {
+                            event.target.innerText = originalText;
+                            event.target.classList.remove('copied');
+                        }, 2000);
                     });
                 });
             });
 
+            // Feature showcase hover effects
             document.querySelectorAll('.feature-showcase').forEach(card => {
                 card.addEventListener('mousemove', (e) => {
                     const rect = card.getBoundingClientRect();
@@ -1081,6 +2057,9 @@
                     card.style.setProperty('--mouse-y', `${y}px`);
                 });
             });
+
+            // Initialize first step as active
+            goToStep(1);
         });
     </script>
 </body>
